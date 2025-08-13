@@ -20,6 +20,10 @@ export const config = ENV[currentEnv];
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || config.API_BASE_URL;
 export const CORS_ORIGIN = import.meta.env.VITE_CORS_ORIGIN || config.CORS_ORIGIN;
 
+// Export environment flags
+export const isDevelopment = currentEnv === 'development';
+export const isProduction = currentEnv === 'production';
+
 // Log configuration in development
 if (currentEnv === 'development') {
   console.log('Environment:', currentEnv);
