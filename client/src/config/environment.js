@@ -10,11 +10,11 @@ const ENV = {
   }
 };
 
-// Get current environment
-const currentEnv = import.meta.env.MODE || 'development';
+// Get current environment - fallback to production for safety
+const currentEnv = import.meta.env.MODE || 'production';
 
 // Export environment-specific config
-export const config = ENV[currentEnv];
+export const config = ENV[currentEnv] || ENV.production;
 
 // Export individual values for convenience
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || config.API_BASE_URL;
@@ -24,8 +24,8 @@ export const CORS_ORIGIN = import.meta.env.VITE_CORS_ORIGIN || config.CORS_ORIGI
 export const isDevelopment = currentEnv === 'development';
 export const isProduction = currentEnv === 'production';
 
-// Log configuration in development
-if (currentEnv === 'development') {
+// Safe logging - only in development and when console is available
+if (typeof console !== 'undefined' && currentEnv === 'development') {
   console.log('Environment:', currentEnv);
   console.log('API Base URL:', API_BASE_URL);
   console.log('CORS Origin:', CORS_ORIGIN);
